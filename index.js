@@ -12,7 +12,6 @@ const chatUsers = new Set();
 const app = express();
 
 const server = app.listen(PORT, () => {
-	console.log(server.address().address, process.argv.PORT);
 	console.log(`Visit ${HOSTNAME}:${PORT}`);
 });
 const io = socket(server);
