@@ -1,7 +1,8 @@
 module.exports = {
 	serverConfig: {
 		port: 4200,
-		hostname: 'http://localhost'
+		hostname: 'http://localhost',
+		buildPath: 'frontend/build'
 	},
 	emittedEvents: {
 		userDisconnected: 'user_disconnected',
