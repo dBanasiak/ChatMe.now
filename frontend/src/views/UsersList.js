@@ -9,7 +9,7 @@ const UsersList = () => {
 		const socket = socketIOClient('http://localhost:4200');
 		socket.on('add_new_user', data => {
 			addToUsersList(data);
-		})
+		});
 	});
 
 	return (
@@ -20,7 +20,7 @@ const UsersList = () => {
 				<p key={item}>{item}</p>
 			))}
 		</div>
-	)
-}
+	);
+};
 
 export default UsersList;
