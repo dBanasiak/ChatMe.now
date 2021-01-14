@@ -10,16 +10,24 @@
      "plugin:react/recommended"
    ],
   "parserOptions": {
-    "ecmaVersion": 2018,
+    "ecmaVersion": 2020,
     "sourceType": "module",
     "ecmaFeatures": {
         "jsx": true
     }
   },
   "rules": {
-    "no-console": "error"
+    "no-console": "warn",
+    "eol-last": 0,
+    "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 0 }]
   },
   "plugins": [
     "react"
+  ],
+  "overrides": [
+    {
+      "files": ["**/*.test.js"],
+      "extends": ["plugin:jest/recommended", "plugin:jest/style"]
+    }
   ]
 }
