@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import socketIOClient from 'socket.io-client';
+import PropTypes from 'prop-types';
 
-const AddNewUser = () => {
+const AddNewUser = ({
+	setCurrentUser
+}) => {
 	const [user, setUser] = useState('');
 	const [isVisible, setIsVisible] = useState(true);
 
@@ -9,6 +12,7 @@ const AddNewUser = () => {
 		const socket = socketIOClient('http://localhost:4200');
 		socket.emit('add_new_user', user);
 		setIsVisible(!isVisible);
+		setCurrentUser(user);
 	};
 
 	const handleKeyDown = ({ key }) => {
@@ -28,6 +32,10 @@ const AddNewUser = () => {
 				<button onClick={addNewUser}>Join</button   >
 			</div>)
 	);
+};
+
+AddNewUser.propTypes = {
+	setCurrentUser: PropTypes.func
 };
 
 export default AddNewUser;

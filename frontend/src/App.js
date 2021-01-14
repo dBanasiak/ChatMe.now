@@ -1,5 +1,6 @@
+import React from 'react';
 import './App.scss';
-import UsersList from './views/UsersList';
+import UsersList from './components/UsersList';
 
 function App() {
 	return (
