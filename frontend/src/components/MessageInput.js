@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import socketIOClient from 'socket.io-client';
 import PropTypes from 'prop-types';
+import { MessageInputButton, MessageInputContainer, MessageInputForm } from '../style/components/messageInput';
 
 const MessageInput = ({
 	currentUser
@@ -9,6 +10,9 @@ const MessageInput = ({
 	const socket = socketIOClient('http://localhost:4200');
 
 	const sendMessage = () => {
+		if (!message) {
+			return;
+		}
 		const time = new Date();
 		socket.emit('sending_a_message', {
 			message,
@@ -34,14 +38,15 @@ const MessageInput = ({
 	};
 
 	return (
-		<div>
-			<input
-				placeholder="Enter message"
+		<MessageInputContainer>
+			<MessageInputForm
+				placeholder='Enter message...'
 				value={message}
 				onChange={e => addMessage(e.target.value)}
 				onKeyDown={handleKeyDown}
 				disabled={!currentUser} />
-		</div>
+			<MessageInputButton>&gt;</MessageInputButton>
+		</MessageInputContainer>
 	);
 };
 

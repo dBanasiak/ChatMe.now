@@ -1,13 +1,24 @@
 import React from 'react';
 import './App.scss';
-import UsersList from './components/UsersList';
+import {
+	BrowserRouter as Router,
+	Switch,
+	Route
+} from 'react-router-dom';
+import BaseChat from './components/BaseChat';
 
-function App() {
+const App = () => {
 	return (
-		<div className="App">
-			<UsersList />
-		</div>
+		<Router>
+			<div>
+				<Switch>
+					<Route exact path='/'>
+						<BaseChat />
+					</Route>
+				</Switch>
+			</div>
+		</Router>
 	);
-}
+};
 
 export default App;

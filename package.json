@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon run"
+    "dev": "nodemon run",
+    "client": "cd frontend && yarn start",
+    "server": "nodemon run",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "repository": {
     "type": "git",
@@ -26,6 +29,7 @@
     "socket.io": "^3.0.4"
   },
   "devDependencies": {
+    "concurrently": "^5.3.0",
     "eslint": "^7.17.0",
     "nodemon": "^2.0.6"
   }
