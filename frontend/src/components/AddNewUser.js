@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import socketIOClient from 'socket.io-client';
 import PropTypes from 'prop-types';
+import { AddUserButton, AddUserContainer, AddUserInput, AddUserLabel } from '../style/components/addNewUser';
 
 const AddNewUser = ({
 	setCurrentUser
 }) => {
 	const [user, setUser] = useState('');
 	const [isVisible, setIsVisible] = useState(true);
+	const inputID = 'add-user-id';
+	const isUser = user.length;
 
 	const addNewUser = () => {
 		const socket = socketIOClient('http://localhost:4200');
@@ -16,21 +19,28 @@ const AddNewUser = ({
 	};
 
 	const handleKeyDown = ({ key }) => {
-		if (key === 'Enter') {
+		if (key === 'Enter' && isUser) {
 			addNewUser();
 		}
 	};
 	
 	return (
 		(isVisible && 
-			<div>
-				<input
-					placeholder="Enter your nickname"
+			<AddUserContainer>
+				<AddUserLabel htmlFor={inputID}>
+					Enter your nickname
+				</AddUserLabel>
+				<AddUserInput
+					placeholder='Nickname...'
 					value={user}
 					onChange={e => setUser(e.target.value)}
 					onKeyDown={handleKeyDown} />
-				<button onClick={addNewUser}>Join</button   >
-			</div>)
+				<AddUserButton
+					onClick={addNewUser}
+					disabled={!isUser} >
+					join
+				</AddUserButton>
+			</AddUserContainer>)
 	);
 };
 

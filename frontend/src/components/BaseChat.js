@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import socketIOClient from 'socket.io-client';
+import { BaseChatContainer } from '../style/components/baseChat';
+import ActiveUsersList from './ActiveUsersList';
 import AddNewUser from './AddNewUser';
 import MessageBox from './MessageBox';
-import MessageInput from './MessageInput';
 
-const UsersList = () => {
+const BaseChat = () => {
 	const [usersList, addToUsersList] = useState([]);
 	const [currentUser, setCurrentUser] = useState();
 	const [messagesList, addToMessageList] = useState([]);
@@ -37,17 +38,19 @@ const UsersList = () => {
 
 	return (
 		<div>
-			<AddNewUser
-				setCurrentUser={setActiveUser} />
-			<h1>Active users</h1>
-			{usersList.map(item => (
-				<p key={item}>{item}</p>
-			))}
-			<MessageBox messageObject={messagesList} />
-			<MessageInput
-				currentUser={currentUser} />
+			<AddNewUser setCurrentUser={setActiveUser} />
+			{currentUser &&
+				<BaseChatContainer>
+					<ActiveUsersList
+						currentUser={currentUser}
+						usersList={usersList} />
+					<MessageBox
+						currentUser={currentUser}
+						messageObject={messagesList} />
+				</BaseChatContainer>
+			}
 		</div>
 	);
 };
 
-export default UsersList;
+export default BaseChat;
