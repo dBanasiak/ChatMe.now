@@ -1,14 +1,13 @@
 {
-  "name": "TS-NodeJS-Chat",
+  "name": "ChatMe.now",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon run",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
     "client": "cd frontend && yarn start",
-    "server": "nodemon run",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "server": "nodemon run"
   },
   "repository": {
     "type": "git",
