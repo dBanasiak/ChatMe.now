@@ -1,6 +1,6 @@
 module.exports = {
 	serverConfig: {
-		port: 4200,
+		port: 3001,
 		hostname: 'http://localhost',
 		buildPath: 'frontend/build'
 	},

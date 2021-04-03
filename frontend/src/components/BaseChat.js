@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import socketIOClient from 'socket.io-client';
 import { BaseChatContainer } from '../style/components/baseChat';
+import { socketClient } from '../utils/socket-client';
 import ActiveUsersList from './ActiveUsersList';
 import AddNewUser from './AddNewUser';
 import MessageBox from './MessageBox';
@@ -9,7 +9,7 @@ const BaseChat = () => {
 	const [usersList, addToUsersList] = useState([]);
 	const [currentUser, setCurrentUser] = useState();
 	const [messagesList, addToMessageList] = useState([]);
-	const socket = socketIOClient('http://localhost:4200');
+	const socket = socketClient();
 
 	const setActiveUser = (userName) => setCurrentUser(userName);
 

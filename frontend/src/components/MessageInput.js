@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import socketIOClient from 'socket.io-client';
 import PropTypes from 'prop-types';
 import { MessageInputButton, MessageInputContainer, MessageInputForm } from '../style/components/messageInput';
+import { socketClient } from '../utils/socket-client';
 
 const MessageInput = ({
 	currentUser
 }) => {
 	const [message, addMessage] = useState('');
-	const socket = socketIOClient('http://localhost:4200');
+	const socket = socketClient();
 
 	const sendMessage = () => {
 		if (!message) {

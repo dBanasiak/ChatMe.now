@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import socketIOClient from 'socket.io-client';
 import PropTypes from 'prop-types';
 import { AddUserButton, AddUserContainer, AddUserInput, AddUserLabel } from '../style/components/addNewUser';
+import { socketClient } from '../utils/socket-client';
 
 const AddNewUser = ({
 	setCurrentUser
@@ -12,7 +12,7 @@ const AddNewUser = ({
 	const isUser = user.length;
 
 	const addNewUser = () => {
-		const socket = socketIOClient('http://localhost:4200');
+		const socket = socketClient();
 		socket.emit('add_new_user', user);
 		setIsVisible(!isVisible);
 		setCurrentUser(user);
