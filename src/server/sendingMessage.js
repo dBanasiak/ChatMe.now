@@ -5,7 +5,8 @@ const {
 
 module.exports = (socket, io) => {
 	socket.on(emittedEvents.sendingMessage, (data) => {
-		console.log(data.nick, serverLabels.sentMessage, `'${data.message}'`);
+		const { message, user } = data;
+		console.log(`User: '${user}`, serverLabels.sentMessage, `'${message}'`);
 		io.emit(emittedEvents.sendingMessage, data);
 	});
 };

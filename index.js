@@ -1,5 +1,4 @@
-const express = require('express');
-const socket = require('socket.io');
+const express = require('express')();
 const { serverConfig, emittedEvents } = require('./src/constants');
 const addNewUser = require('./src/server/addNewUser');
 const sendingMessage = require('./src/server/sendingMessage');
@@ -7,17 +6,16 @@ const userDisconnected = require('./src/server/userDisconnected');
 const userIsTyping = require('./src/server/userIsTyping');
 
 const PORT = process.env.PORT || serverConfig.port;
-const HOSTNAME = serverConfig.hostname;
 const chatUsers = new Set();
-const app = express();
+const server = require('http').createServer(express).listen(PORT);
 
-const server = app.listen(PORT, () => {
-	console.log(`Visit ${HOSTNAME}:${PORT}`);
+const io = require('socket.io')(server, {
+	cors: {
+		origin: 'ws://localhost:3000/',
+		methods: ['GET', 'POST'],
+		credentials: true
+	}
 });
-const io = socket(server);
-
-// TODO - add frontend part
-app.use(express.static(serverConfig.buildPath));
 
 io.on(emittedEvents.connection, (socket) => {
 	addNewUser(socket, io, chatUsers);
