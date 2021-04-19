@@ -1,15 +1,23 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import { AddUserButton, AddUserContainer, AddUserInput, AddUserLabel } from '../style/components/addNewUser';
-import { socketClient } from '../utils/socket-client';
+import { socketClient } from '../utils/socketClient';
 
-const AddNewUser = ({
-	setCurrentUser
-}) => {
+const AddNewUser = () => {
 	const [user, setUser] = useState('');
 	const [isVisible, setIsVisible] = useState(true);
 	const inputID = 'add-user-id';
 	const isUser = user.length;
+	const history = useHistory();
+
+	const setCurrentUser = (user) => {
+		const currentParams = `${window.location.search}&user=${user}`;
+
+		history.push({
+			pathname: '/chat',
+			search: currentParams
+		});
+	};
 
 	const addNewUser = () => {
 		const socket = socketClient();
@@ -42,10 +50,6 @@ const AddNewUser = ({
 				</AddUserButton>
 			</AddUserContainer>)
 	);
-};
-
-AddNewUser.propTypes = {
-	setCurrentUser: PropTypes.func
 };
 
 export default AddNewUser;

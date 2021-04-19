@@ -11,7 +11,13 @@ export const UsersListContainer = styled.div`
     height: fit-content;
 `;
 
-export const UsersListTitle = styled.h1`
+export const UsersListTitle = styled.h2`
+    font-size: 18px;
+    text-shadow: -3px 0 #fff, 0 3px #fff, 3px 0 #fff, 0 -3px #fff;
+    margin-bottom: 20px;
+`;
+
+export const UsersListRoom = styled.h1`
     font-size: 22px;
     text-shadow: -3px 0 #fff, 0 3px #fff, 3px 0 #fff, 0 -3px #fff;
     margin-bottom: 20px;

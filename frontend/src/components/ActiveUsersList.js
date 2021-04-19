@@ -1,14 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-	UsersListContainer, UsersListItem, UsersListTitle
+	UsersListContainer, UsersListItem, UsersListTitle, UsersListRoom
 } from '../style/components/activeUsersList';
 
 const ActiveUsersList = ({
 	usersList,
-	currentUser
+	currentUser,
+	currentRoom
 }) => (
 	<UsersListContainer>
+		<UsersListRoom>{currentRoom}</UsersListRoom>
 		<UsersListTitle>Active users</UsersListTitle>
 		{usersList.map(item => (
 			<UsersListItem
@@ -22,7 +24,8 @@ const ActiveUsersList = ({
 
 ActiveUsersList.propTypes = {
 	usersList: PropTypes.array,
-	currentUser: PropTypes.string
+	currentUser: PropTypes.string,
+	currentRoom: PropTypes.string
 };
 
 export default ActiveUsersList;

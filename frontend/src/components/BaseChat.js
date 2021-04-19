@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { BaseChatContainer } from '../style/components/baseChat';
-import { socketClient } from '../utils/socket-client';
+import { getQueryParams } from '../utils/getQueryParam';
+import { socketClient } from '../utils/socketClient';
 import ActiveUsersList from './ActiveUsersList';
-import AddNewUser from './AddNewUser';
 import MessageBox from './MessageBox';
 
 const BaseChat = () => {
 	const [usersList, addToUsersList] = useState([]);
-	const [currentUser, setCurrentUser] = useState();
+	const currentUser = getQueryParams('user');
+	const currentRoom = getQueryParams('room');
 	const [messagesList, addToMessageList] = useState([]);
 	const socket = socketClient();
 
-	const setActiveUser = (userName) => setCurrentUser(userName);
+	useEffect(() => {
+		if (currentUser) {
+			socket.emit('add_new_user', currentUser);
+		}
+	}, []);
 
 	useEffect(() => {
 		socket.on('add_new_user', data => {
@@ -20,6 +25,10 @@ const BaseChat = () => {
 
 		socket.on('sending_a_message', data => {
 			addToMessageList(messagesList => [...messagesList, data]);
+		});
+
+		socket.on('get_all_messages', data => {
+			addToMessageList(data);
 		});
 
 		socket.on('user_disconnected', (userName) => {
@@ -38,12 +47,12 @@ const BaseChat = () => {
 
 	return (
 		<div>
-			<AddNewUser setCurrentUser={setActiveUser} />
 			{currentUser &&
 				<BaseChatContainer>
 					<ActiveUsersList
 						currentUser={currentUser}
-						usersList={usersList} />
+						usersList={usersList}
+						currentRoom={currentRoom} />
 					<MessageBox
 						currentUser={currentUser}
 						messageObject={messagesList} />

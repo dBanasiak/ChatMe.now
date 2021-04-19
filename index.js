@@ -1,6 +1,7 @@
 const express = require('express')();
 const { serverConfig, emittedEvents } = require('./src/constants');
 const addNewUser = require('./src/server/addNewUser');
+const getAllMessages = require('./src/server/getAllMessages');
 const sendingMessage = require('./src/server/sendingMessage');
 const userDisconnected = require('./src/server/userDisconnected');
 const userIsTyping = require('./src/server/userIsTyping');
@@ -18,8 +19,10 @@ const io = require('socket.io')(server, {
 });
 
 io.on(emittedEvents.connection, (socket) => {
+	socket.allMessages = [];
 	addNewUser(socket, io, chatUsers);
 	sendingMessage(socket, io);
 	userIsTyping(socket);
+	getAllMessages(socket, io);
 	userDisconnected(socket, io, chatUsers);
 });

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { MessageInputButton, MessageInputContainer, MessageInputForm } from '../style/components/messageInput';
-import { socketClient } from '../utils/socket-client';
+import { socketClient } from '../utils/socketClient';
 
 const MessageInput = ({
 	currentUser
